@@ -23,6 +23,7 @@ public class test {
         configuration.set("dfs.replication", "3");
         String user = "root";
         fs = FileSystem.get(uri, configuration, user);
+        //
     }
 
     @After
