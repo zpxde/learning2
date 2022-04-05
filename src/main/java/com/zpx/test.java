@@ -23,7 +23,6 @@ public class test {
         configuration.set("dfs.replication", "3");
         String user = "root";
         fs = FileSystem.get(uri, configuration, user);
-        //
     }
 
     @After
@@ -32,7 +31,7 @@ public class test {
     }
 
     @Test
-    public void testmkdir() throws  IOException{
+    public void testmkdir() throws IOException {
         fs.mkdirs(new Path("/xxi/sdh"));
     }
 
@@ -50,12 +49,14 @@ public class test {
         //参数一源文件是否删除，参数二源文件路径hdfs，目标地址路径，奇偶校验
         fs.copyToLocalFile(false, new Path("/xxi"), new Path("D:\\"), true);
     }
+
     @Test
     public void testrm() throws IOException {
         //参数一要删除的路径，参数二；是否递归删除
-        fs.delete(new Path("/xffxi"),true);
+        fs.delete(new Path("/xffxi"), true);
         //删除空目录
     }
+
     @Test
     public void testmv() throws IOException {
         fs.rename(new Path("/xxi/hhh.txt"), new Path("/xxi/ss.txt"));
