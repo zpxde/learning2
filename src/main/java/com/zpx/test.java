@@ -67,7 +67,7 @@ public class test {
     public void fileDetail() throws IOException {
 
         // 获取所有文件信息
-        RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path("/"), true);
+        RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path("/xxi"), true);
 
         // 遍历文件
         while (listFiles.hasNext()) {
@@ -88,6 +88,20 @@ public class test {
 
             System.out.println(Arrays.toString(blockLocations));
 
+        }
+    }
+    @Test
+    public void testFile() throws IOException {
+
+        FileStatus[] listStatus = fs.listStatus(new Path("/xxi"));
+
+        for (FileStatus status : listStatus) {
+
+            if (status.isFile()) {
+                System.out.println("文件：" + status.getPath().getName());
+            } else {
+                System.out.println("目录：" + status.getPath().getName());
+            }
         }
     }
 }
