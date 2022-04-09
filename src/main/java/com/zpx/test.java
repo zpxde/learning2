@@ -2,8 +2,7 @@ package com.zpx;
 
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +10,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 public class test {
 
@@ -60,6 +60,34 @@ public class test {
 
     @Test
     public void testmv() throws IOException {
-        fs.rename(new Path("/xxi/hhh.txt"), new Path("/xxi/ss.txt"));
+        //参数一：原文件 参数二：修改后的的文件的路径
+        fs.rename(new Path("/xxi/ss.txt"), new Path("/xxi/jjj.txt"));
+    }
+    @Test
+    public void fileDetail() throws IOException {
+
+        // 获取所有文件信息
+        RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path("/"), true);
+
+        // 遍历文件
+        while (listFiles.hasNext()) {
+            LocatedFileStatus fileStatus = listFiles.next();
+
+            System.out.println("==========" + fileStatus.getPath() + "=========");
+            System.out.println(fileStatus.getPermission());
+            System.out.println(fileStatus.getOwner());
+            System.out.println(fileStatus.getGroup());
+            System.out.println(fileStatus.getLen());
+            System.out.println(fileStatus.getModificationTime());
+            System.out.println(fileStatus.getReplication());
+            System.out.println(fileStatus.getBlockSize());
+            System.out.println(fileStatus.getPath().getName());
+
+            // 获取块信息
+            BlockLocation[] blockLocations = fileStatus.getBlockLocations();
+
+            System.out.println(Arrays.toString(blockLocations));
+
+        }
     }
 }
